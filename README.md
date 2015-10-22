@@ -5,6 +5,5 @@ I modified the code so it looks better, there's spacing between the buttons.  Se
 
 # How to Use
 
-1. Basically all you need is the FloatingActionMenu and the rounded_corners.xml.
-2. Put the rounded_corners.xml in your drawable folder.
-3. Then all you have to do is put your class in and do what is shown in the example.
+1. Like any other library, put this in your Android project and add it as a dependency.
+2. You can also use jitpack.io if you want to use Maven.
