@@ -1,54 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/comicView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <terranovaproductions.newcomicreader.FloatingActionMenu
-        android:id="@+id/fab_menu"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/home_tabs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        fab:tabTextColor="@android:color/white"
+        fab:tabSelectedTextColor="@android:color/holo_green_light"
+        android:background="@android:color/holo_blue_light"/>
 
-        <!--First button as menu button-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_white_24dp"
-            fab:fabSize="normal"
-            fab:backgroundTint="@color/material_orange"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/holo_green_light"/>
 
-        <!-- Other button as menu items-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_random"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Hello World1"
-            android:paddingBottom="20dp"
-            fab:fabSize="mini"
-            fab:backgroundTint="@color/material_orange" />
-
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_download"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Hello World2"
-            android:paddingBottom="20dp"
-            fab:fabSize="mini"
-            fab:backgroundTint="@color/material_orange"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_browser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Hello World3"
-            android:paddingBottom="20dp"
-            fab:fabSize="mini"
-            fab:backgroundTint="@color/material_orange"/>
-
-    </terranovaproductions.newcomicreader.FloatingActionMenu>
-
-
-</RelativeLayout>
+</LinearLayout>

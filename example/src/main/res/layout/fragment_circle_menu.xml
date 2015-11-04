@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <terranovaproductions.newcomicreader.FloatingActionMenu
+        android:id="@+id/fab_menu_circle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp">
+
+        <!--First button as menu button-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_main_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_white_24dp"
+            fab:fabSize="normal"
+            fab:backgroundTint="@color/material_orange"/>
+
+        <!-- Other button as menu items-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_random_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_home_white_24dp"
+            fab:fabSize="mini"
+            fab:backgroundTint="@color/material_orange" />
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_download_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_file_download_white_24dp"
+            fab:fabSize="mini"
+            fab:backgroundTint="@color/material_orange"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_browser_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_open_in_browser_white_24dp"
+            fab:fabSize="mini"
+            fab:backgroundTint="@color/material_orange"/>
+
+    </terranovaproductions.newcomicreader.FloatingActionMenu>
+
+</LinearLayout>
