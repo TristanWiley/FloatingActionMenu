@@ -46,7 +46,7 @@ public class FloatingActionMenu extends ViewGroup {
     private boolean animating;
     private boolean mIsSetClosedOnTouchOutside = true;
     private long duration = 300;
-    private boolean isCircle = true;
+    private boolean isCircle = false;
     private int mRadius = 256;
     private float multipleOfFB = 0;
     private int mItemGap = 0;
