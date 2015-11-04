@@ -19,6 +19,7 @@ public class DemoLineMenuFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_line_menu, container, false);
         FloatingActionMenu menu = (FloatingActionMenu) v.findViewById(R.id.fab_menu_line);
         menu.setIsCircle(false);
+        menu.setmItemGap(48);
         return v;
     }
 }
