@@ -16,7 +16,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,51 +33,24 @@ public class FloatingActionMenu extends ViewGroup {
 
     static final TimeInterpolator DEFAULT_OPEN_INTERPOLATOR = new OvershootInterpolator();
     static final TimeInterpolator DEFAULT_CLOSE_INTERPOLATOR = new AnticipateInterpolator();
-    private static final long ANIMATION_DURATION = 300;
-    private static final int DEFAULT_CHILD_GRAVITY = Gravity.END | Gravity.BOTTOM;
-    Animator animator = new Animator() {
-        @Override
-        public long getStartDelay() {
-            return 0;
-        }
 
-        @Override
-        public void setStartDelay(long startDelay) {
-
-        }
-
-        @Override
-        public Animator setDuration(long duration) {
-            duration = 2;
-            return null;
-        }
-
-        @Override
-        public long getDuration() {
-            return 0;
-        }
-
-        @Override
-        public void setInterpolator(TimeInterpolator value) {
-
-        }
-
-        @Override
-        public boolean isRunning() {
-            return true;
-        }
-    };
     private FloatingActionButton mMenuButton;
     private ArrayList<FloatingActionButton> mMenuItems;
     private ArrayList<TextView> mMenuItemLabels;
     private ArrayList<ItemAnimator> mMenuItemAnimators;
-    private int mItemMargin;
     private AnimatorSet mOpenAnimatorSet = new AnimatorSet();
     private AnimatorSet mCloseAnimatorSet = new AnimatorSet();
     private ImageView mIcon;
+
     private boolean mOpen;
     private boolean animating;
     private boolean mIsSetClosedOnTouchOutside = true;
+    private long duration = 300;
+    private boolean isCircle = true;
+    private int mRadius = 256;
+    private float multipleOfFB = 0;
+    private int mItemGap = 0;
+
     private OnMenuItemClickListener onMenuItemClickListener;
     private OnMenuToggleListener onMenuToggleListener;
     GestureDetector mGestureDetector = new GestureDetector(getContext(),
@@ -101,7 +73,8 @@ public class FloatingActionMenu extends ViewGroup {
             if (v instanceof FloatingActionButton) {
                 int i = mMenuItems.indexOf(v);
                 if (onMenuItemClickListener != null) {
-                    onMenuItemClickListener.onMenuItemClick(FloatingActionMenu.this, i, (FloatingActionButton) v);
+                    onMenuItemClickListener
+                            .onMenuItemClick(FloatingActionMenu.this, i, (FloatingActionButton) v);
                 }
             } else if (v instanceof TextView) {
                 int i = mMenuItemLabels.indexOf(v);
@@ -126,7 +99,6 @@ public class FloatingActionMenu extends ViewGroup {
         super(context, attrs, defStyleAttr);
         mMenuItems = new ArrayList<>(5);
         mMenuItemAnimators = new ArrayList<>(5);
-
         mMenuItemLabels = new ArrayList<>(5);
         mIcon = new ImageView(context);
     }
@@ -192,19 +164,6 @@ public class FloatingActionMenu extends ViewGroup {
         }
     }
 
-//    Rect rect = new Rect();
-//    Paint paint = new Paint();
-//
-//    @Override
-//    protected boolean drawChild(@NonNull Canvas canvas, @NonNull View child, long drawingTime) {
-//        boolean b = super.drawChild(canvas, child, drawingTime);
-//        paint.setColor(0xFFFF0000);
-//        paint.setStyle(Paint.Style.STROKE);
-//        rect.set(child.getLeft(), child.getTop(), child.getRight(), child.getBottom());
-//        canvas.drawRect(rect, paint);
-//        return b;
-//    }
-
     protected void startOpenAnimator() {
         mOpenAnimatorSet.start();
         for (ItemAnimator anim : mMenuItemAnimators) {
@@ -254,7 +213,8 @@ public class FloatingActionMenu extends ViewGroup {
         for (int i = 0; i < mMenuItems.size(); i++) {
             FloatingActionButton fab = mMenuItems.get(i);
             TextView label = mMenuItemLabels.get(i);
-            maxChildWidth = Math.max(maxChildWidth, label.getMeasuredWidth() + fab.getMeasuredWidth() + mItemMargin);
+            maxChildWidth = Math.max(maxChildWidth,
+                    label.getMeasuredWidth() + fab.getMeasuredWidth());
 
         }
 
@@ -289,6 +249,7 @@ public class FloatingActionMenu extends ViewGroup {
         }
     }
 
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         System.out.println("onLayout:" + changed);
@@ -296,36 +257,71 @@ public class FloatingActionMenu extends ViewGroup {
             int right = r - getPaddingRight();
             int bottom = b - getPaddingBottom();
             int top = bottom - mMenuButton.getMeasuredHeight();
-
             mMenuButton.layout(right - mMenuButton.getMeasuredWidth(), top, right, bottom);
             int dw = (mMenuButton.getMeasuredWidth() - mIcon.getMeasuredWidth()) / 2;
             int dh = (mMenuButton.getMeasuredHeight() - mIcon.getMeasuredHeight()) / 2;
-            mIcon.layout(right - mIcon.getMeasuredWidth() - dw, bottom - mIcon.getMeasuredHeight() - dh, right - dw, bottom - dh);
-            for (int i = 0; i < mMenuItems.size(); i++) {
-                FloatingActionButton item = mMenuItems.get(i);
-                TextView label = mMenuItemLabels.get(i);
+            mIcon.layout(right - mIcon.getMeasuredWidth() - dw,
+                    bottom - mIcon.getMeasuredHeight() - dh, right - dw, bottom - dh);
 
-                label.setBackgroundResource(R.drawable.rounded_corners);
+            if (isCircle) {
+                if (mMenuItems.size() < 2) {
+                    Log.e("onLayout", "Floating Action Buttons must more then one!");
+                    return;
+                }
+                double angle = Math.PI/2d/(mMenuItems.size() - 1);
+                for (int i = 0; i < mMenuItems.size(); i++) {
+                    FloatingActionButton itemFB = mMenuItems.get(i);
+                    int fbWidth = itemFB.getMeasuredWidth();
+                    int fbHeight = itemFB.getMeasuredHeight();
+                    if (0 != multipleOfFB) {
+                        mRadius = (int) (fbWidth * multipleOfFB);
+                    }
+                    int itemDw = (mMenuButton.getMeasuredWidth() - fbWidth) / 2;
+                    int itemDh = (mMenuButton.getMeasuredHeight() - fbHeight) / 2;
+                    int itemX = (int) (mRadius*Math.cos(i*angle));
+                    int itemY = (int) (mRadius*Math.sin(i*angle));
+                    itemFB.layout(right - itemX - fbWidth - itemDw, bottom - itemY - fbHeight - itemDh,
+                            right - itemX - itemDw, bottom - itemY - itemDh);
 
-                bottom = top -= mMenuItems.get(i).getPaddingBottom(); //Add 10px padding
+                    if (!animating) {
+                        if (!mOpen) {
+                            itemFB.setTranslationY(mMenuButton.getTop() - itemFB.getTop());
+                            itemFB.setTranslationX(mMenuButton.getLeft() - itemFB.getLeft());
+                            itemFB.setVisibility(GONE);
+                        } else {
+                            itemFB.setTranslationY(0);
+                            itemFB.setTranslationX(0);
+                            itemFB.setVisibility(VISIBLE);
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < mMenuItems.size(); i++) {
+                    FloatingActionButton item = mMenuItems.get(i);
+                    TextView label = mMenuItemLabels.get(i);
 
-                top -= item.getMeasuredHeight();
-                int width = item.getMeasuredWidth();
-                int d = (mMenuButton.getMeasuredWidth() - width) / 2;
-                item.layout(right - width - d, top, right - d, bottom);
-                d = (item.getMeasuredHeight() - label.getMeasuredHeight()) / 2;
+                    label.setBackgroundResource(R.drawable.rounded_corners);
+                    bottom = top -= mItemGap;
 
+                    top -= item.getMeasuredHeight();
+                    int width = item.getMeasuredWidth();
+                    int d = (mMenuButton.getMeasuredWidth() - width) / 2;
+                    item.layout(right - width - d, top, right - d, bottom);
+                    d = (item.getMeasuredHeight() - label.getMeasuredHeight()) / 2;
 
-                label.layout(item.getLeft() - mItemMargin - label.getMeasuredWidth() - 50, item.getTop() + d, item.getLeft() - mItemMargin, item.getTop() + d + label.getMeasuredHeight());
-                if (!animating) {
-                    if (!mOpen) {
-                        item.setTranslationY(mMenuButton.getTop() - item.getTop());
-                        item.setVisibility(GONE);
-                        label.setVisibility(GONE);
-                    } else {
-                        item.setTranslationY(0);
-                        item.setVisibility(VISIBLE);
-                        label.setVisibility(VISIBLE);
+                    label.layout(item.getLeft() - label.getMeasuredWidth() - 50,
+                            item.getTop() + d, item.getLeft(),
+                            item.getTop() + d + label.getMeasuredHeight());
+                    if (!animating) {
+                        if (!mOpen) {
+                            item.setTranslationY(mMenuButton.getTop() - item.getTop());
+                            item.setVisibility(GONE);
+                            label.setVisibility(GONE);
+                        } else {
+                            item.setTranslationY(0);
+                            item.setVisibility(VISIBLE);
+                            label.setVisibility(VISIBLE);
+                        }
                     }
                 }
             }
@@ -408,8 +404,8 @@ public class FloatingActionMenu extends ViewGroup {
         mOpenAnimatorSet.setInterpolator(DEFAULT_OPEN_INTERPOLATOR);
         mCloseAnimatorSet.setInterpolator(DEFAULT_CLOSE_INTERPOLATOR);
 
-        mOpenAnimatorSet.setDuration(ANIMATION_DURATION);
-        mCloseAnimatorSet.setDuration(ANIMATION_DURATION);
+        mOpenAnimatorSet.setDuration(duration);
+        mCloseAnimatorSet.setDuration(duration);
 
         mOpenAnimatorSet.addListener(listener);
         mCloseAnimatorSet.addListener(listener);
@@ -501,15 +497,29 @@ public class FloatingActionMenu extends ViewGroup {
         public void startOpenAnimator() {
             mView.animate().cancel();
             playingOpenAnimator = true;
-            mView.animate().translationY(0).setInterpolator(DEFAULT_OPEN_INTERPOLATOR).start();
-            mMenuButton.animate().rotation(135f).setInterpolator(DEFAULT_OPEN_INTERPOLATOR).start();
+            mView.animate()
+                    .translationY(0)
+                    .translationX(0)
+                    .setInterpolator(DEFAULT_OPEN_INTERPOLATOR)
+                    .start();
+            mMenuButton.animate()
+                    .rotation(135f)
+                    .setInterpolator(DEFAULT_OPEN_INTERPOLATOR)
+                    .start();
         }
 
         public void startCloseAnimator() {
             mView.animate().cancel();
             playingOpenAnimator = false;
-            mView.animate().translationY((mMenuButton.getTop() - mView.getTop())).setInterpolator(DEFAULT_CLOSE_INTERPOLATOR).start();
-            mMenuButton.animate().rotation(0f).setInterpolator(DEFAULT_CLOSE_INTERPOLATOR).start();
+            mView.animate()
+                    .translationX(mMenuButton.getLeft() - mView.getLeft())
+                    .translationY((mMenuButton.getTop() - mView.getTop()))
+                    .setInterpolator(DEFAULT_CLOSE_INTERPOLATOR)
+                    .start();
+            mMenuButton.animate()
+                    .rotation(0f)
+                    .setInterpolator(DEFAULT_CLOSE_INTERPOLATOR)
+                    .start();
         }
 
         @Override
@@ -538,5 +548,45 @@ public class FloatingActionMenu extends ViewGroup {
         @Override
         public void onAnimationRepeat(Animator animation) {
         }
+    }
+
+    /**
+     * set as circle(default) or line pattern
+     * @param isCircle
+     */
+    public void setIsCircle(boolean isCircle) {
+        this.isCircle = isCircle;
+    }
+
+    /**
+     * set the radius of menu, default 256
+     * @param mRadius
+     */
+    public void setmRadius(int mRadius) {
+        this.mRadius = mRadius;
+    }
+
+    /**
+     * set radius as multiple of width of floating action button
+     * @param multipleOfFB
+     */
+    public void setMultipleOfFB(float multipleOfFB) {
+        this.multipleOfFB = multipleOfFB;
+    }
+
+    /**
+     * duration of anim, default 300
+     * @param duration
+     */
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    /**
+     * Only usefully in Line pattern
+     * @param mItemGap
+     */
+    public void setmItemGap(int mItemGap) {
+        this.mItemGap = mItemGap;
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <terranovaproductions.newcomicreader.FloatingActionMenu
+        android:id="@+id/fab_menu_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@android:color/holo_green_light">
+
+        <!--First button as menu button-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_white_24dp"
+            fab:fabSize="normal"
+            fab:backgroundTint="@android:color/holo_red_light"/>
+
+        <!-- Other button as menu items-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_random"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Hello World1"
+            fab:fabSize="mini"
+            fab:backgroundTint="@android:color/holo_red_light" />
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Hello World2"
+            fab:fabSize="mini"
+            fab:backgroundTint="@android:color/holo_red_light"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_browser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Hello World3"
+            fab:fabSize="mini"
+            fab:backgroundTint="@android:color/holo_red_light"/>
+
+    </terranovaproductions.newcomicreader.FloatingActionMenu>
+
+</LinearLayout>
