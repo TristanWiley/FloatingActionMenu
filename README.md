@@ -19,6 +19,8 @@ I modified the code so it looks better, there's spacing between the buttons.
 ##Contributors
   [Tristan Wiley](https://github.com/TristanWiley)
   
+  [douo](https://gist.github.com/douo)
+  
   [callmepeanut](https://github.com/callmepeanut)
   
   [Avinash-Bhat](https://github.com/Avinash-Bhat)
