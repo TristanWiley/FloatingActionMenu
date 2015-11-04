@@ -26,6 +26,8 @@ public class DemoCircleMenuFragment extends Fragment {
     private void initView(View v) {
         FloatingActionMenu menu = (FloatingActionMenu) v.findViewById(R.id.fab_menu_circle);
         menu.setMultipleOfFB(3.2f);
+        menu.setIsCircle(true);
+
         menu.setOnMenuItemClickListener(new FloatingActionMenu.OnMenuItemClickListener() {
             @Override
             public void onMenuItemClick(FloatingActionMenu fam, int index, FloatingActionButton item) {
