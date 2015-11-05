@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <novaapps.floatingactionmenu.FloatingActionMenu
+    <terranovaproductions.newcomicreader.FloatingActionMenu
         android:id="@+id/fab_menu_circle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,6 +47,6 @@
             fab:fabSize="mini"
             fab:backgroundTint="@color/material_orange"/>
 
-    </novaapps.floatingactionmenu.FloatingActionMenu>
+    </terranovaproductions.newcomicreader.FloatingActionMenu>
 
 </LinearLayout>
