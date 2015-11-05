@@ -1,4 +1,4 @@
-package terranovaproductions.newcomicreader.sample;
+package novaapps.floatingactionmenu.sample;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
