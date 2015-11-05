@@ -1,4 +1,4 @@
-package terranovaproductions.newcomicreader;
+package novaapps.floatingactionmenu;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
