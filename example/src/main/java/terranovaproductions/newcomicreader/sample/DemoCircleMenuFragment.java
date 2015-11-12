@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import terranovaproductions.newcomicreader.FloatingActionMenu;
+import com.novaapps.floatingactionmenu;
 
 /**
  * Created by renqinghe on 15-11-4.
