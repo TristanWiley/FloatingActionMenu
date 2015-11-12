@@ -1,4 +1,4 @@
-package terranovaproductions.newcomicreader;
+package com.novaapps;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
