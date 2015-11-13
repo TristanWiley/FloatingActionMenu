@@ -5,8 +5,9 @@ The sample shows how to use it.
 
 Check the example for usage, the default is a line. A "circle" can be used by doing
 
+```java
     menu.setIsCircle(true)
-  
+```
   
 ## Example
 ![](http://7lrzvb.com1.z0.glb.clouddn.com/test07.gif)
