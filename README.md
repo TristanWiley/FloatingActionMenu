@@ -1,10 +1,16 @@
 #FloatingActionMenu
 ---
 This is a fork from https://github.com/TristanWiley/FloatingActionMenu, I modified it to support both  circle and line menu.
-The sample shows how to use it.
 
 Check the example for usage, the default is a line. A "circle" can be used by doing
 
+#Usage
+
+Put the following dependency in Gradle:
+
+    compile 'com.novaapps:FloatingActionMenu:1.0'
+
+Check the sample for more information, to make the FloatingActionMenu a circle use the below code.
 ```java
     menu.setIsCircle(true)
 ```
