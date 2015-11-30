@@ -31,3 +31,5 @@ I modified the code so it looks better, there's spacing between the buttons.
   [callmepeanut](https://github.com/callmepeanut)
   
   [Avinash-Bhat](https://github.com/Avinash-Bhat)
+  
+  Also thank you to my friend [tryadelion](https://github.com/tryadelion) for helping me get this on Bintray :).
