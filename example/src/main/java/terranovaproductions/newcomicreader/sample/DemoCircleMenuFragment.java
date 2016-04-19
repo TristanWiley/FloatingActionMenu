@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.novaapps.floatingactionmenu;
+import com.novaapps.floatingactionmenu.FloatingActionMenu;
 
 /**
  * Created by renqinghe on 15-11-4.
