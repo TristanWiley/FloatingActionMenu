@@ -206,6 +206,9 @@ public class FloatingActionMenu extends ViewGroup {
     @Override
     public void addView(@NonNull View child, int index, LayoutParams params) {
         super.addView(child, index, params);
+
+        // If the child count is greater than one, we are adding menu items.
+        // If the child count is not greater than one, we are adding the initial menu item.
         if (getChildCount() > 1) {
             if (child instanceof FloatingActionButton) {
                 addMenuItem((FloatingActionButton) child);
@@ -225,6 +228,9 @@ public class FloatingActionMenu extends ViewGroup {
         }
     }
 
+    /**
+     * Handles the measuring of the FAM, and sets the size according to the number of children.
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -269,6 +275,9 @@ public class FloatingActionMenu extends ViewGroup {
                 resolveSize(height, heightMeasureSpec));
     }
 
+    /**
+     * Handles a touch event in the ViewGroup and closes the FAM if necessary.
+     */
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
         if (mIsSetClosedOnTouchOutside) {
@@ -278,6 +287,9 @@ public class FloatingActionMenu extends ViewGroup {
         }
     }
 
+    /**
+     * Sets the layout of the ViewGroup dependent on the number of menu items as well as menu direction.
+     */
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         System.out.println("onLayout:" + changed);
@@ -363,6 +375,9 @@ public class FloatingActionMenu extends ViewGroup {
         }
     }
 
+    /**
+     * Saves the state of the menu item as open or close to be able to handle device rotations.
+     */
     @Override
     public Parcelable onSaveInstanceState() {
         d("onSaveInstanceState");
@@ -373,6 +388,9 @@ public class FloatingActionMenu extends ViewGroup {
         return bundle;
     }
 
+    /**
+     * Restores the state of the FAM after a rotation.
+     */
     @Override
     public void onRestoreInstanceState(Parcelable state) {
         d("onRestoreInstanceState");
@@ -611,40 +629,35 @@ public class FloatingActionMenu extends ViewGroup {
     }
 
     /**
-     * set as circle(default) or line pattern
-     * @param isCircle
+     * Set as circle(default) or line pattern
      */
     public void setIsCircle(boolean isCircle) {
         this.isCircle = isCircle;
     }
 
     /**
-     * set the radius of menu, default 256
-     * @param mRadius
+     * Set the radius of menu, default 256
      */
     public void setmRadius(int mRadius) {
         this.mRadius = mRadius;
     }
 
     /**
-     * set radius as multiple of width of floating action button
-     * @param multipleOfFB
+     * Set radius as multiple of width of floating action button
      */
     public void setMultipleOfFB(float multipleOfFB) {
         this.multipleOfFB = multipleOfFB;
     }
 
     /**
-     * duration of anim, default 300
-     * @param duration
+     * Duration of anim, default 300
      */
     public void setDuration(long duration) {
         this.duration = duration;
     }
 
     /**
-     * Only usefully in Line pattern
-     * @param mItemGap
+     * Only usefully in Line pattern - sets the gap between menu items.
      */
     public void setmItemGap(int mItemGap) {
         this.mItemGap = mItemGap;
