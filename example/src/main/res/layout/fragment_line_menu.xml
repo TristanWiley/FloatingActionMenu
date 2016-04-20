@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_green_light">
 
-    <com.novaapps.floatingactionmenu
+    <com.novaapps.floatingactionmenu.FloatingActionMenu
         android:id="@+id/fab_menu_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp">
 
         <!--First button as menu button-->
         <android.support.design.widget.FloatingActionButton
@@ -47,6 +48,6 @@
             fab:fabSize="mini"
             fab:backgroundTint="@android:color/holo_red_light"/>
 
-    </com.novaapps.floatingactionmenu>
+    </com.novaapps.floatingactionmenu.FloatingActionMenu>
 
 </LinearLayout>
