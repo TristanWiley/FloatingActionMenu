@@ -1,5 +1,5 @@
 #FloatingActionMenu
----
+
 This is a fork from https://github.com/TristanWiley/FloatingActionMenu, I modified it to support both  circle and line menu.
 
 Check the example for usage, the default is a line. A "circle" can be used by doing
